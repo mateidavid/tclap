@@ -88,6 +88,11 @@ class CmdLine : public CmdLineInterface
         std::string _progPath;
 
         /**
+         * Original command line.
+         */
+        std::vector< const char * > _origArgv;
+
+        /**
          * A message used to describe the program.  Used in the usage output.
          */
         std::string _message;
@@ -281,6 +286,11 @@ private:
         /**
          *
          */
+        std::string getOrigArgv();
+
+        /**
+         *
+         */
         std::list<Arg*>& getArgList();
 
         /**
@@ -443,6 +453,7 @@ inline void CmdLine::add( Arg* a )
 
 inline void CmdLine::parse(int argc, const char * const * argv)
 {
+    _origArgv = std::vector< const char * >(&argv[0], &argv[argc]);
         // this step is necessary so that we have easy access to
         // mutable strings.
         std::vector<std::string> args;
@@ -607,6 +618,17 @@ inline std::string& CmdLine::getProgramName()
 inline std::string& CmdLine::getProgramPath()
 {
     return _progPath;
+}
+
+inline std::string CmdLine::getOrigArgv()
+{
+    std::ostringstream os;
+    for (size_t i = 1; i < _origArgv.size(); ++i)
+    {
+        if (i > 1) os << _delimiter;
+        os << _origArgv[i];
+    }
+    return os.str();
 }
 
 inline std::list<Arg*>& CmdLine::getArgList()
