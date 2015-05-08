@@ -221,6 +221,8 @@ class ValueArg : public Arg
          * Returns the value of the argument.
          */
         T& getValue() ;
+        T& get() { return getValue(); }
+        operator T & () { return getValue(); }
 
         /**
          * Specialization of shortID.

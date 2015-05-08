@@ -185,7 +185,9 @@ public:
      * Returns a vector of type T containing the values parsed from
      * the command line.
      */
-    const std::vector<T>& getValue();
+    std::vector<T>& getValue();
+    std::vector<T>& get() { return getValue(); }
+    operator std::vector< T > & () { return getValue(); }
 
     /**
      * Returns an iterator over the values parsed from the command
@@ -302,7 +304,7 @@ MultiArg<T>::MultiArg(const std::string& flag,
 }
 
 template<class T>
-const std::vector<T>& MultiArg<T>::getValue() { return _values; }
+std::vector<T>& MultiArg<T>::getValue() { return _values; }
 
 template<class T>
 bool MultiArg<T>::processArg(int *i, std::vector<std::string>& args)

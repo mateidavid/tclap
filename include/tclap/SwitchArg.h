@@ -112,7 +112,10 @@ class SwitchArg : public Arg
         /**
          * Returns bool, whether or not the switch has been set.
          */
-        bool getValue();
+        bool getValue() const;
+        bool get() const { return getValue(); }
+        void set(bool v) { _value = v; }
+        operator bool () const { return getValue(); }
 
         virtual void reset();
 
@@ -155,7 +158,7 @@ inline SwitchArg::SwitchArg(const std::string& flag,
     parser.add( this );
 }
 
-inline bool SwitchArg::getValue() { return _value; }
+inline bool SwitchArg::getValue() const { return _value; }
 
 inline bool SwitchArg::lastCombined(std::string& combinedSwitches )
 {
