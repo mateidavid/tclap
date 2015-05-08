@@ -78,9 +78,14 @@ class CmdLine : public CmdLineInterface
         std::list<Arg*> _argList;
 
         /**
-         * The name of the program.  Set to argv[0].
+         * The name of the program.  Set to basename(argv[0]).
          */
         std::string _progName;
+
+        /**
+         * The path of the program.  Set to dirname(argv[0]).
+         */
+        std::string _progPath;
 
         /**
          * A message used to describe the program.  Used in the usage output.
@@ -271,6 +276,11 @@ private:
         /**
          *
          */
+        std::string& getProgramPath();
+
+        /**
+         *
+         */
         std::list<Arg*>& getArgList();
 
         /**
@@ -327,6 +337,7 @@ inline CmdLine::CmdLine(const std::string& m,
     :
   _argList(std::list<Arg*>()),
   _progName("not_set_yet"),
+  _progPath("not_set_yet"),
   _message(m),
   _version(v),
   _numRequired(0),
@@ -448,6 +459,19 @@ inline void CmdLine::parse(std::vector<std::string>& args)
 
     try {
         _progName = args.front();
+        {
+            size_t pos = _progName.rfind('/');
+            if (pos != std::string::npos)
+            {
+                _progPath = std::move(_progName);
+                _progName = _progPath.substr(pos + 1);
+                _progPath.resize(pos);
+            }
+            else
+            {
+                _progPath.clear();
+            }
+        }
         args.erase(args.begin());
 
         int requiredCount = 0;
@@ -580,6 +604,11 @@ inline std::string& CmdLine::getProgramName()
     return _progName;
 }
 
+inline std::string& CmdLine::getProgramPath()
+{
+    return _progPath;
+}
+
 inline std::list<Arg*>& CmdLine::getArgList()
 {
     return _argList;
@@ -621,6 +650,7 @@ inline void CmdLine::reset()
         (*it)->reset();
 
     _progName.clear();
+    _progPath.clear();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
