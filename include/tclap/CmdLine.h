@@ -271,6 +271,11 @@ private:
         /**
          *
          */
+        void usage();
+
+        /**
+         *
+         */
         std::string& getVersion();
 
         /**
@@ -603,6 +608,11 @@ inline void CmdLine::setOutput(CmdLineOutput* co)
         delete _output;
     _userSetOutput = true;
     _output = co;
+}
+
+inline void CmdLine::usage()
+{
+    _output->usage(*this);
 }
 
 inline std::string& CmdLine::getVersion()
