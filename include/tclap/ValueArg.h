@@ -236,6 +236,16 @@ class ValueArg : public Arg
          */
         virtual std::string longID(const std::string& val = "val") const;
 
+        /**
+         * Default value.
+         */
+        virtual std::string getDefaultValue() const
+        {
+            std::ostringstream oss;
+            oss << _default;
+            return oss.str();
+        }
+
         virtual void reset() ;
 
 private:

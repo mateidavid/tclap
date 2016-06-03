@@ -117,6 +117,11 @@ class SwitchArg : public Arg
         void set(bool v) { _value = v; }
         operator bool () const { return getValue(); }
 
+        /**
+         * Get default value.
+         */
+        virtual std::string getDefaultValue() const { return std::string(); }
+
         virtual void reset();
 
     private:

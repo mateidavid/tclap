@@ -204,7 +204,9 @@ StdOutput::_longUsage( CmdLineInterface& _cmd,
                   it++ )
                 {
                     spacePrint( os, (*it)->longID(), 75, 3, 3 );
-                    spacePrint( os, (*it)->getDescription(), 75, 5, 0 );
+                    std::string desc = (*it)->getDescription();
+                    std::string def_val = (*it)->getDefaultValue();
+                    spacePrint( os, not def_val.empty()? desc + " (default: " + def_val + ")" : desc, 75, 5, 0 );
 
                     if ( it+1 != xorList[i].end() )
                         spacePrint(os, "-- OR --", 75, 9, 0);
@@ -217,7 +219,9 @@ StdOutput::_longUsage( CmdLineInterface& _cmd,
         if ( !xorHandler.contains( (*it) ) )
             {
                 spacePrint( os, (*it)->longID(), 75, 3, 3 );
-                spacePrint( os, (*it)->getDescription(), 75, 5, 0 );
+                std::string desc = (*it)->getDescription();
+                std::string def_val = (*it)->getDefaultValue();
+                spacePrint( os, not def_val.empty()? desc + " (default: " + def_val + ")" : desc, 75, 5, 0 );
                 os << std::endl;
             }
 

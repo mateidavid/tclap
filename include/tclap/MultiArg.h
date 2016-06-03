@@ -213,6 +213,8 @@ public:
      */
     virtual std::string longID(const std::string& val="val") const;
 
+    virtual std::string getDefaultValue() const { return std::string(); }
+
     /**
      * Once we've matched the first value, then the arg is no longer
      * required.

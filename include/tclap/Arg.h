@@ -287,6 +287,11 @@ class Arg
         std::string getDescription() const;
 
         /**
+         * Returns default value as string.
+         */
+        virtual std::string getDefaultValue() const { return std::string(); }
+
+        /**
          * Indicates whether the argument is required.
          */
         virtual bool isRequired() const;

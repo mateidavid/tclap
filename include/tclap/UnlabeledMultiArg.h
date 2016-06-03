@@ -50,6 +50,7 @@ class UnlabeledMultiArg : public MultiArg<T>
     using MultiArg<T>::_description;
     using MultiArg<T>::_alreadySet;
     using MultiArg<T>::toString;
+    using MultiArg<T>::getDefaultValue;
 
     public:
 

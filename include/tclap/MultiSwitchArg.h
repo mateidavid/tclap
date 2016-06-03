@@ -122,6 +122,14 @@ class MultiSwitchArg : public SwitchArg
          */
         std::string longID(const std::string& val) const;
 
+        /**
+         * Get default value.
+         */
+        virtual std::string getDefaultValue() const
+        {
+            return _default? "true" : "false";
+        }
+
         void reset();
 
 };
